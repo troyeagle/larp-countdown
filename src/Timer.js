@@ -28,42 +28,48 @@ function Timer({ initTime, active }) {
     cdRef.current.getApi()?.start();
 
     // 设置
-  })
+  }, [allTime])
+
 
   useEffect(() => {
-    if (!active) {
-      reset();
-    }
-  }, [active]);
+    const mili = initTime * 1000;
+    setDate(Date.now() + mili);
+    setAllTime(mili);
+  }, [initTime])
 
   const pause = useCallback(() => {
     setRunning(false);
     apis?.pause();
-  })
+  }, [apis])
   
   const reset = useCallback(() => {
     apis?.stop();
     setRunning(false);
     setDate(Date.now() + allTime);
     setRest(allTime);
-  })
+  }, [allTime, apis])
 
   const resume = useCallback(() => {
     setDate(Date.now() + rest);
     setRunning(true);
     apis?.start();
-  })
+  }, [apis, rest])
+
+  useEffect(() => {
+    if (!active) {
+      reset();
+    }
+  }, [active, reset]);
 
 
   useEffect(() => {
     const listener = (e) => {
-      console.log(e);
-      if (e.code === 'Space') {
-        console.log('should be here');
-        running ? pause() : (rest === allTime ? start() : resume());
-      } else if (e.code === 'KeyR') {
-        console.log('should be there');
-        reset();
+      if ((e.target)?.tagName === 'BODY') {
+        if (e.code === 'Space') {
+          running ? pause() : (rest === allTime ? start() : resume());
+        } else if (e.code === 'KeyR') {
+          reset();
+        }
       }
     }
     if (active) {

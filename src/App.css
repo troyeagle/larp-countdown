@@ -15,7 +15,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 20vh;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,4 +45,11 @@
 
 .player-inactive {
   opacity: 0.2;
+}
+
+.supplement {
+  padding: 1rem;
+  .ant-descriptions-item-label, .ant-descriptions-item-content {
+    font-size: 1.5rem;
+  }
 }
