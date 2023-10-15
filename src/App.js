@@ -3,15 +3,18 @@ import './App.css';
 
 import Timer from './Timer';
 
-import { Row, Col, Image, Descriptions, InputNumber, Form, Button } from 'antd';
+import { Row, Col, Image, Descriptions, InputNumber, Form, Button, Checkbox } from 'antd';
 function App() {
 
+  // 目前只支持两方，多方需要改造
   const [upActive, setUpActive] = useState(true);
   const changeUpActive = (active) => {
     setUpActive(active);
   }
 
   const [initTime, setInitTime] = useState(90);
+
+  const [reset, setReset] = useState(false);
 
   const onFinish = (values) => {
     if (values.time) {
@@ -43,7 +46,7 @@ function App() {
         </Col>
         <Col span={10}
         >
-          <Timer initTime={initTime} active={upActive}/>
+          <Timer initTime={initTime} active={upActive} resetPerSwitch={reset}/>
         </Col>
       </Row>
       
@@ -53,7 +56,7 @@ function App() {
         </Col>
         <Col span={10}
         >
-          <Timer initTime={initTime} active={!upActive}/>
+          <Timer initTime={initTime} active={!upActive} resetPerSwitch={reset}/>
         </Col>
       </Row>
 
@@ -89,8 +92,9 @@ function App() {
               <Button type="primary" htmlType="submit">
                   确认
               </Button>
-            </Form>
+            </Form>  
           </div>
+          <Checkbox value={reset} onChange={(e) => setReset(e.target.checked)}>每次切换重置时间</Checkbox>
         </Col>
         
         
