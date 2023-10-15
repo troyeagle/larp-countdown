@@ -4,7 +4,7 @@ import Countdown from 'react-countdown';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import dayjs from 'dayjs';
 
-function Timer({ initTime, active }) {
+function Timer({ initTime, active, resetPerSwitch = true }) {
 
   const initInMili = (initTime || 60) * 1000;
 
@@ -57,9 +57,10 @@ function Timer({ initTime, active }) {
 
   useEffect(() => {
     if (!active) {
-      reset();
+      if (resetPerSwitch) reset();
+      else pause();
     }
-  }, [active, reset]);
+  }, [active, reset, resetPerSwitch, pause, start, resume]);
 
 
   useEffect(() => {
