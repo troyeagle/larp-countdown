@@ -1,6 +1,16 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 
+beforeEach(() => {
+  jest.useFakeTimers('modern');
+  jest.setSystemTime(new Date('2026-01-01T00:00:00Z'));
+});
+
+afterEach(() => {
+  jest.clearAllTimers();
+  jest.useRealTimers();
+});
+
 test('renders two timer controls and the time settings', () => {
   render(<App />);
   expect(screen.getByText('计时器')).toBeInTheDocument();
