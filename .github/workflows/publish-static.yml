@@ -1,0 +1,25 @@
+name: Build static application
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: static-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    name: Publish static application
+    uses: troyeagle/troyeagle.github.io/.github/workflows/build-static-app.yml@bc0ef6bec17c15c5748669d1a68bce94e03787c4
+    with:
+      app: countdown
+      publisher_ref: bc0ef6bec17c15c5748669d1a68bce94e03787c4
+    secrets:
+      BLOG_DISPATCH_TOKEN: ${{ secrets.BLOG_DISPATCH_TOKEN }}

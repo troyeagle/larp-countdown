@@ -94,7 +94,7 @@ function App() {
               </Button>
             </Form>  
           </div>
-          <Checkbox value={reset} onChange={(e) => setReset(e.target.checked)}>每次切换重置时间</Checkbox>
+          <Checkbox checked={reset} onChange={(e) => setReset(e.target.checked)}>每次切换重置时间</Checkbox>
         </Col>
         
         
