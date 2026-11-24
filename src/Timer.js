@@ -48,7 +48,7 @@ function Timer({ initTime, active, resetPerSwitch = true }) {
     setRunning(false);
     setDate(Date.now() + allTime);
     setRest(allTime);
-  }, [allTime, apis, initTime])
+  }, [allTime, apis])
 
   const resume = useCallback(() => {
     setDate(Date.now() + rest);
